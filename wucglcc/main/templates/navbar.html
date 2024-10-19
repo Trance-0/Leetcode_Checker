@@ -1,0 +1,37 @@
+<header class="mb-auto">
+    <div class=" fixed-top ">
+        <!-- Nav bar use some code from: https://getbootstrap.com/docs/5.3/components/navbar/#scrolling -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- Title -->
+                <a class="navbar-brand ml-3" href="#">LeetCode LeaderBoard</a>
+                <!-- Toggle for navigation bar if there is no enough space -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Toggle content (navigation bar) -->
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <!-- Homepage -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="https://wucg.club">Home</a>
+                        </li>
+                    </ul>
+
+                  
+                </div>
+            </div>
+        </nav>
+
+        {% include "message_display.html"%}
+    </div>
+</header>
+
+<!-- nav-bar placeholder -->
+
+<div style="height: 70px;"></div>
+
+<div id="noteModal">
+    <!-- Some dirty code to place modals created by note module -->
+</div>

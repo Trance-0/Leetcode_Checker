@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> WUCG Benchmark </title>
+    <style>
+        .fill-height {
+            height: calc(100vh - 82px);
+            /* Adjust the navbar height as needed */
+        }
+    </style>
+
+    {% load static %}
+    
+    {% include "resource_header.html" %}
+
+</head>
+
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    {% include "navbar.html" %}
+
+    <main class="container-fluid align-items-center fill-height">
+        <div class="row g-2 h-100">
+            <div class="col-md-9 mt-3 h-100">
+                <div class="card mb-3 h-100">
+                    <div class="card-header">
+                        <nav>
+                            <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link" id="nav-day-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-day-edit" type="button" role="tab"
+                                    aria-controls="nav-day-edit" aria-selected="true">
+                                    Today
+                                </button>
+                                <button class="nav-link active" id="nav-week-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-week-edit" type="button" role="tab"
+                                    aria-controls="nav-week-edit" aria-selected="false">
+                                    Week
+                                </button>
+                                <button class="nav-link" id="nav-all-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-all-gen" type="button" role="tab" aria-controls="nav-all-gen"
+                                    aria-selected="false" disabled>
+                                    All time
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="tab-content" style="overflow-y: auto; padding-right: 1px; overflow-x: hidden;" id="nav-tabContent">
+                        <div class="tab-pane fade" id="nav-day-edit" role="tabpanel" aria-labelledby="nav-day-tab"
+                            tabindex="0">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active" id="nav-week-edit" role="tabpanel"
+                            aria-labelledby="nav-week-tab" tabindex="0">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-all-gen" role="tabpanel" aria-labelledby="nav-all-tab"
+                            tabindex="0">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-md-3 blog-sidebar mt-3 mb-3 h-100">
+                <!-- The side panel is used to render meta data for notes, note list would be render separately.-->
+                <div class="card h-100 mb-3">
+                    <div class="card-body" style="overflow-y:auto;">
+                        <div class="card-header">
+                            We're still working on side panels.
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+</body>
+
+<!-- TODO: create footer here -->

@@ -1,0 +1,13 @@
+{% if messages %}
+{% for message in messages %}
+<div
+    class="{% if message.tags %}{% if message.tags == 'debug' %}alert alert-light{% elif message.tags == 'error'%}alert alert-danger{% else %}alert alert-{{message.tags}}{% endif %}{% endif %} mt-3 ms-3 me-3" id="message-{{forloop.counter0}}">
+    {{ message }}
+    <script>
+        setTimeout(function() {
+            $('#message-{{forloop.counter0}}').fadeOut('fast');
+        }, 1000*"{{forloop.counter0}}");
+    </script>
+</div>
+{% endfor %}
+{% endif %}
