@@ -4,7 +4,17 @@ from member.models import Member
 
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
+# create your models here
+
+class ServerOperationChoices(models.TextChoices):
+    """Server operation choices"""
+    UPDATE_MEMBER = "UPDATE_MEMBER", _("Update Member")
+    UPDATE_PROBLEM = "UPDATE_PROBLEM", _("Update Problem")
+    UPDATE_BENCHMARK = "UPDATE_BENCHMARK", _("Update Benchmark")
+
+class ServerOperations(models.Model):
+    operation_name = models.CharField(choices=ServerOperationChoices.choices,null=False,max_length=256)
+    timestamp = models.DateTimeField(auto_now=True,null=False)
 
 class LeetCodeSeverChoices(models.TextChoices):
     """User group choices, may be more efficient if use django internal group"""
@@ -25,8 +35,9 @@ class Schedule(models.Model):
     # editable datetime field with auto-now
     # https://stackoverflow.com/a/18752680/14110380
     created_date = models.DateTimeField(auto_now=True,null=False)
+    start_date = models.DateTimeField(null=False)
     last_update = models.DateTimeField(auto_now_add=True,null=False)
-    expire_date = models.DateTimeField(auto_now=True,null=False)
+    expire_date = models.DateTimeField(null=False)
     server = models.CharField(
         null=False,
         max_length=2,

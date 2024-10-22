@@ -28,12 +28,12 @@
                     <div class="card-header">
                         <nav>
                             <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link" id="nav-day-tab" data-bs-toggle="tab"
+                                <button class="nav-link active" id="nav-day-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-day-edit" type="button" role="tab"
                                     aria-controls="nav-day-edit" aria-selected="true">
                                     Today
                                 </button>
-                                <button class="nav-link active" id="nav-week-tab" data-bs-toggle="tab"
+                                <button class="nav-link" id="nav-week-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-week-edit" type="button" role="tab"
                                     aria-controls="nav-week-edit" aria-selected="false">
                                     Week
@@ -47,12 +47,35 @@
                         </nav>
                     </div>
                     <div class="tab-content" style="overflow-y: auto; padding-right: 1px; overflow-x: hidden;" id="nav-tabContent">
-                        <div class="tab-pane fade" id="nav-day-edit" role="tabpanel" aria-labelledby="nav-day-tab"
+                        <div class="tab-pane fade show active" id="nav-day-edit" role="tabpanel" aria-labelledby="nav-day-tab"
                             tabindex="0">
                             <div class="card-body">
+                                 <!-- User Ranking Table -->
+                                <h2>User Ranking</h2>
+                                <h5 class="text-muted">Last Update: <span id="last-update-time">{{last_update_time}}</span></h5>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Rank</th>
+                                            <th scope="col">User</th>
+                                            <th scope="col">Submission Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Example rows, replace with dynamic content -->
+                                        {% for user in users %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td>{{user.name}}</td>
+                                            <td>{{user.submission_time}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade show active" id="nav-week-edit" role="tabpanel"
+                        <div class="tab-pane fade" id="nav-week-edit" role="tabpanel"
                             aria-labelledby="nav-week-tab" tabindex="0">
                             <div class="card-body">
                             </div>
