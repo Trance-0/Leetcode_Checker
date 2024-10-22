@@ -16,6 +16,9 @@ class ServerOperations(models.Model):
     operation_name = models.CharField(choices=ServerOperationChoices.choices,null=False,max_length=256)
     timestamp = models.DateTimeField(auto_now=True,null=False)
 
+    def __str__(self):
+        return f"{self.operation_name} at {self.timestamp}" 
+
 class LeetCodeSeverChoices(models.TextChoices):
     """User group choices, may be more efficient if use django internal group"""
 
@@ -44,6 +47,8 @@ class Schedule(models.Model):
         choices=LeetCodeSeverChoices.choices,
         default=LeetCodeSeverChoices.US
     )
+    def __str__(self):
+        return f"{self.member_id} - {self.leetcode_username} - {self.start_date} - {self.expire_date}"
 
 class Problem(models.Model):
     
@@ -57,3 +62,5 @@ class Problem(models.Model):
     # is the problem ac or not
     status=models.BooleanField(default=False,null=False)
     done_date = models.DateTimeField(auto_now=True,null=False)
+    def __str__(self):
+        return f"{self.schedule_id} - {self.problem_name} - {self.status}"

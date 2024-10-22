@@ -11,7 +11,7 @@ import os
 
 import logging
 
-from wucglcc.member.models import Member
+from member.models import Member
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +55,6 @@ def update_member_data():
     # print(f"Current time: {current_time}")
     # Extract the values from the sheet data
     values = sheet_data.get("values", [])
-
     # Skip the header row and iterate over the data rows
     for row in values[1:]:
         timestamp = datetime.strptime(row[0], "%Y-%m-%d %p%I:%M:%S").replace(
@@ -106,12 +105,14 @@ def update_member_data():
             server=LeetCodeSeverChoices.US if leetcode_region == "美区 （Leetcode.com）" else LeetCodeSeverChoices.CN,
             weekly_goal=weekly_goal,
         )
+        logger.info(f"Created schedule {schedule}") 
         # Create new problems
         for problem_id in problem_ids:
-            Problem.objects.create(
+            problem = Problem.objects.create(
                 schedule=schedule, problem_name=problem_id, status=False
             )
-
+            logger.info(f"Created problem {problem}")
+    # Update the last update time
     update_time = datetime.now()
     ServerOperations.objects.create(
         operation_name=ServerOperationChoices.UPDATE_MEMBER, timestamp=update_time
