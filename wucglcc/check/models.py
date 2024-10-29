@@ -1,23 +1,10 @@
 from django.db import models
 
-from member.models import Member
+from member.models import Member,ServerOperationChoices,ServerOperations
 
 from django.utils.translation import gettext_lazy as _
 
 # create your models here
-
-class ServerOperationChoices(models.TextChoices):
-    """Server operation choices"""
-    UPDATE_MEMBER = "UPDATE_MEMBER", _("Update Member")
-    UPDATE_PROBLEM = "UPDATE_PROBLEM", _("Update Problem")
-    UPDATE_BENCHMARK = "UPDATE_BENCHMARK", _("Update Benchmark")
-
-class ServerOperations(models.Model):
-    operation_name = models.CharField(choices=ServerOperationChoices.choices,null=False,max_length=256)
-    timestamp = models.DateTimeField(auto_now=True,null=False)
-
-    def __str__(self):
-        return f"{self.operation_name} at {self.timestamp}" 
 
 class LeetCodeSeverChoices(models.TextChoices):
     """User group choices, may be more efficient if use django internal group"""
@@ -35,13 +22,15 @@ class Schedule(models.Model):
         null=False,
     )
     leetcode_username= models.CharField(null=False,max_length=256)
+    is_name_public = models.BooleanField(default=False,null=False)
     # editable datetime field with auto-now
     # https://stackoverflow.com/a/18752680/14110380
     created_date = models.DateTimeField(auto_now=True,null=False)
-    start_date = models.DateTimeField(null=False)
+    weekly_goal = models.IntegerField(default=7,null=False)
+    start_date = models.DateTimeField(auto_now=True,null=False)
     last_update = models.DateTimeField(auto_now_add=True,null=False)
-    expire_date = models.DateTimeField(null=False)
-    server = models.CharField(
+    expire_date = models.DateTimeField(null=True)
+    server_region = models.CharField(
         null=False,
         max_length=2,
         choices=LeetCodeSeverChoices.choices,
@@ -49,6 +38,11 @@ class Schedule(models.Model):
     )
     def __str__(self):
         return f"{self.member_id} - {self.leetcode_username} - {self.start_date} - {self.expire_date}"
+
+class ProblemStatusChoices(models.TextChoices):
+    AC = "AC", _("Accepted")
+    NA = "NA", _("Not Attempted")
+    SP = "SP", _("Sample Problem")
 
 class Problem(models.Model):
     
@@ -58,9 +52,11 @@ class Problem(models.Model):
         on_delete=models.CASCADE,
         null=False,
     )
+    problem_code = models.IntegerField(null=False)
     problem_name= models.CharField(null=False,max_length=256)
     # is the problem ac or not
-    status=models.BooleanField(default=False,null=False)
+    status=models.CharField(choices=ProblemStatusChoices.choices,default=ProblemStatusChoices.NA,null=False,max_length=2)
     done_date = models.DateTimeField(auto_now=True,null=False)
     def __str__(self):
         return f"{self.schedule_id} - {self.problem_name} - {self.status}"
+

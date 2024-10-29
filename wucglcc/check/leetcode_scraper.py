@@ -1,13 +1,26 @@
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
+import os
+from pytz import timezone
 
+from django.conf import settings
 import requests
 from warnings import filterwarnings
+import logging
+
+from check.models import LeetCodeSeverChoices, Schedule
+from member.models import ServerOperationChoices, ServerOperations
+
+server_timezone = timezone(settings.TIME_ZONE)
+logger = logging.getLogger(__name__)
 
 filterwarnings('ignore')
 
 class LeetcodeScraper:
-    def __init__(self):
-        self.base_url = 'https://leetcode.com/graphql'
+
+    def __init__(self,server_region):
+        base_url='https://leetcode.com/graphql' if server_region == LeetCodeSeverChoices.US else 'https://leetcode.cn/graphql'
+        self.base_url = base_url
 
     def scrape_user_recent_submissions(self,username):
         output = {}
@@ -28,7 +41,7 @@ class LeetcodeScraper:
                 response = requests.post(self.base_url, json=json_data, stream=True, verify=False)
                 output[operation] = response.json()['data'] 
             except Exception as e:
-                print(f'username: {username}', f'operation: {operation}', f'error: {e}', sep='\n')
+                logger.error(f'username: {username}', f'operation: {operation}', f'error: {e}', sep='\n')
 
 
         operation_query_dict = {
@@ -60,7 +73,7 @@ class LeetcodeScraper:
                 response = requests.post(self.base_url, json=json_data, stream=True, verify=False)
                 output[operation] = response.json()['data'] 
             except Exception as e:
-                print(f'username: {username}', f'operation: {operation}', f'error: {e}', sep='\n')
+                logger.error(f'username: {username}', f'operation: {operation}', f'error: {e}', sep='\n')
 
 
         operation_query_dict = {
@@ -119,14 +132,14 @@ class LeetcodeScraper:
             else:
                 return data
         except Exception as e:
-            print(f'Error in page number: {page_num}', f'Error: {e}', sep='\n')
+            logger.error(f'Error in page number: {page_num}', f'Error: {e}', sep='\n')
 
     def scrape_all_global_ranking_users(self):
         first_response = self._scrape_single_global_ranking_page(1, only_user_details=False)
         total_leetcode_global_ranking_users = first_response['totalUsers']
         users_per_page = first_response['userPerPage']
         total_global_ranking_pages = total_leetcode_global_ranking_users // users_per_page
-        print(f'Total Leetcode users: {total_leetcode_global_ranking_users}', f'Users per page: {users_per_page}', f'Total pages: {total_global_ranking_pages}', sep='\n')
+        logger.info(f'Total Leetcode users: {total_leetcode_global_ranking_users}', f'Users per page: {users_per_page}', f'Total pages: {total_global_ranking_pages}', sep='\n')
 
         final_response = first_response['rankingNodes']
 
@@ -143,3 +156,37 @@ class LeetcodeScraper:
             'total_global_ranking_pages': total_global_ranking_pages,
             'all_global_ranking_users': final_response
         }
+    
+def update_problem_data():
+    latest_update_operation = (
+        ServerOperations.objects.filter(
+            operation_name=ServerOperationChoices.UPDATE_PROBLEM
+        )
+        .order_by("-timestamp")
+        .first()
+    )
+    # if it is the first time to run, then latest_update_time is None
+    if latest_update_operation is None:
+        latest_update_time = datetime(2000, 1, 1, 0, 0).replace(tzinfo=server_timezone)
+    else:
+        latest_update_time = latest_update_operation.timestamp
+    # Print or return the current time as needed
+    logger.info(f"latest update time: {latest_update_time}")
+    leetcode_scraper_cn = LeetcodeScraper(LeetCodeSeverChoices.CN)
+    leetcode_scraper_us = LeetcodeScraper(LeetCodeSeverChoices.US)
+    active_schedules = Schedule.objects.filter(expire_date__lt=datetime.now())
+    for schedule in active_schedules:
+        if schedule.server_region == LeetCodeSeverChoices.US:
+            leetcode_scraper = leetcode_scraper_us
+        else:
+            leetcode_scraper = leetcode_scraper_cn
+        user_submissions = leetcode_scraper.scrape_user_recent_submissions(schedule.leetcode_username)
+        logger.info(f'user_submissions raw for user {schedule.leetcode_username}: {user_submissions}')
+        for submission in user_submissions['recentAcSubmissions']:
+            logger.info(submission)
+    ServerOperations.objects.create(
+        operation_name=ServerOperationChoices.UPDATE_PROBLEM,
+        timestamp=datetime.now()
+    )
+    logger.info(f'update problem data finished at {datetime.now()}')
+    return

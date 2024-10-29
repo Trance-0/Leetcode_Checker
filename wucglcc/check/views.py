@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_POST, require_GET
 
 from check.googlesheet_member_parser import update_member_data
+from check.leetcode_scraper import update_problem_data
 # Create your views here.
 
 @require_GET
