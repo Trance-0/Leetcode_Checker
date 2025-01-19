@@ -51,76 +51,94 @@
                         <div class="tab-pane fade show active" id="nav-day-edit" role="tabpanel" aria-labelledby="nav-day-tab"
                             tabindex="0">
                             <div class="card-body">
+                                {% if daily_benchmark %}
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">Rank</th>
                                             <th scope="col">User</th>
-                                            <th scope="col">Submission Time</th>
+                                            <th scope="col">AC Count</th>
+                                            <th scope="col">Last Submission Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- Example rows, replace with dynamic content -->
-                                        {% for user in daily_benchmark %}
+                                        {% for entry in daily_benchmark %}
                                         <tr style="{% if forloop.counter == 1 %}background-color: gold;{% elif forloop.counter == 2 %}background-color: silver;{% elif forloop.counter == 3 %}background-color: bronze;{% endif %}">
                                             <th scope="row">{{forloop.counter}}</th>
-                                            <td>{{user.name}}</td>
-                                            <td>{{user.submission_time}}</td>
+                                            <td>{{entry.user.user_id.username}}</td>
+                                            <td>{{entry.AC_count}}</td>
+                                            <td>{{entry.last_submission_time}}</td>
                                         </tr>
                                         {% endfor %}
                                         <!-- Add more rows as needed -->
                                     </tbody>
                                 </table>
+                                {% else %}
+                                <p class="text-muted">No benchmark data</p>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-week-edit" role="tabpanel"
                             aria-labelledby="nav-week-tab" tabindex="0">
                             <div class="card-body">
-                                <table class="table table-striped"></table>
+                                {% if weekly_benchmark %}
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">Rank</th>
                                             <th scope="col">User</th>
-                                            <th scope="col">Submission Time</th>
+                                            <th scope="col">AC Count</th>
+                                            <th scope="col">Last Submission Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- Example rows, replace with dynamic content -->
-                                        {% for user in weekly_benchmark %}
+                                        {% for entry in weekly_benchmark %}
                                         <tr style="{% if forloop.counter == 1 %}background-color: gold;{% elif forloop.counter == 2 %}background-color: silver;{% elif forloop.counter == 3 %}background-color: bronze;{% endif %}">
                                             <th scope="row">{{forloop.counter}}</th>
-                                            <td>{{user.name}}</td>
-                                            <td>{{user.submission_time}}</td>
+                                            <td>{{entry.user.user_id.username}}</td>
+                                            <td>{{entry.AC_count}}</td>
+                                            <td>{{entry.last_submission_time}}</td>
                                         </tr>
                                         {% endfor %}
                                         <!-- Add more rows as needed -->
                                     </tbody>
                                 </table>
+                                {% else %}
+                                <p class="text-muted">No benchmark data</p>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-all-gen" role="tabpanel" aria-labelledby="nav-all-tab"
                             tabindex="0">
                             <div class="card-body">
-                                <table class="table table-striped"></table>
+                                {% if all_time_benchmark %}
+                                <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th scope="col">Rank</th>
                                             <th scope="col">User</th>
-                                            <th scope="col">Submission Time</th>
+                                            <th scope="col">AC Count</th>
+                                            <th scope="col">Last Submission Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- Example rows, replace with dynamic content -->
-                                        {% for user in all_time_benchmark %}
+                                        {% for entry in all_time_benchmark %}
                                         <tr style="{% if forloop.counter == 1 %}background-color: gold;{% elif forloop.counter == 2 %}background-color: silver;{% elif forloop.counter == 3 %}background-color: bronze;{% endif %}">
                                             <th scope="row">{{forloop.counter}}</th>
-                                            <td>{{user.name}}</td>
-                                            <td>{{user.submission_time}}</td>
+                                            <td>{{entry.user.user_id.username}}</td>
+                                            <td>{{entry.AC_count}}</td>
+                                            <td>{{entry.last_submission_time}}</td>
                                         </tr>
                                         {% endfor %}
                                         <!-- Add more rows as needed -->
                                     </tbody>
                                 </table>
+                                {% else %}
+                                <p class="text-muted">No benchmark data</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -132,7 +150,19 @@
                 <div class="card h-100 mb-3">
                     <div class="card-body" style="overflow-y:auto;">
                         <h5 class="text-muted">Last Update: <span id="last-update-time">{{last_update_time}}</span></h5>
-                        We're still working on side panels.
+                        <div class="logs-container">
+                            <h6 class="text-muted">Recent Activity</h6>
+                            {% if logs %}
+                                {% for log in logs %}
+                                <div class="log-entry">
+                                    <small class="text-muted">{{log.timestamp}}</small>
+                                    <p class="mb-1">{{log.operation_name}} {% if log.message %}: {{log.message}}{% else %}{% endif %}</p>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No recent activity</p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </aside>

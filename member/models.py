@@ -13,9 +13,25 @@ class ServerOperationChoices(models.TextChoices):
 class ServerOperations(models.Model):
     operation_name = models.CharField(choices=ServerOperationChoices.choices,null=False,max_length=256)
     timestamp = models.DateTimeField(auto_now=True,null=False)
+    message = models.TextField(null=True)
 
     def __str__(self):
-        return f"{self.operation_name} at {self.timestamp}" 
+        return f"[{self.timestamp}] {self.operation_name}: {self.message}" 
+    
+def server_op(func):
+    """
+    Decorator for server operation, log the operation name and message
+    """
+    def wrapper(*args, **kwargs):
+        ServerOperations.objects.create(operation_name=func.__name__, message=str(args))
+        return func(*args, **kwargs)
+    return wrapper
+
+class LeetCodeSeverChoices(models.TextChoices):
+    """User group choices, may be more efficient if use django internal group"""
+
+    CN= "CN", _("China Mainland")
+    US = "US", _("United States")
 
 class Member(models.Model):
 
@@ -26,6 +42,14 @@ class Member(models.Model):
         on_delete=models.CASCADE,
         null=False,
     )
+    leetcode_username= models.CharField(null=False,max_length=256)
+    server_region = models.CharField(
+        null=False,
+        max_length=2,
+        choices=LeetCodeSeverChoices.choices,
+        default=LeetCodeSeverChoices.US
+    )
+    is_leetcode_username_public = models.BooleanField(default=False,null=False)
     # motto = models.CharField(max_length=100, blank=True, null=True)
     credit_remains = models.IntegerField(default=0, null=False)
 
@@ -35,9 +59,8 @@ class Member(models.Model):
     # Automatically set the field to now when the object is first created. 
     date_joined=models.DateTimeField(auto_now_add=True, null=False)
 
-    # user status is determined by the group in user attribute
-
     def __str__(self):
         """for better list display"""
-        return f"{self.user_id.username}: {self.credit_remains}"
+        return f"{self.user_id.username}-{self.leetcode_username}[{self.server_region}]: {self.credit_remains}"
+    
     

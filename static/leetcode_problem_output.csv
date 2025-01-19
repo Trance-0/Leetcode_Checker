@@ -1,4 +1,191 @@
 Problem ID,Problem Name,Difficulty,Acceptance Rate
+1,Two Sum,Easy,54.0%
+2,Add Two Numbers,Medium,44.4%
+3,Longest Substring Without Repeating Characters,Medium,35.6%
+4,Median of Two Sorted Arrays,Hard,41.8%
+5,Longest Palindromic Substring,Medium,34.6%
+6,Zigzag Conversion,Medium,49.6%
+7,Reverse Integer,Medium,29.3%
+8,String to Integer (atoi),Medium,18.1%
+9,Palindrome Number,Easy,57.8%
+10,Regular Expression Matching,Hard,28.5%
+11,Container With Most Water,Medium,56.4%
+12,Integer to Roman,Medium,66.6%
+13,Roman to Integer,Easy,63.0%
+14,Longest Common Prefix,Easy,44.0%
+15,3Sum,Medium,35.6%
+16,3Sum Closest,Medium,46.2%
+17,Letter Combinations of a Phone Number,Medium,62.0%
+18,4Sum,Medium,36.9%
+19,Remove Nth Node From End of List,Medium,47.0%
+20,Valid Parentheses,Easy,41.2%
+21,Merge Two Sorted Lists,Easy,65.5%
+22,Generate Parentheses,Medium,75.7%
+23,Merge k Sorted Lists,Hard,54.5%
+24,Swap Nodes in Pairs,Medium,65.6%
+25,Reverse Nodes in k-Group,Hard,60.8%
+26,Remove Duplicates from Sorted Array,Easy,58.0%
+27,Remove Element,Easy,58.5%
+28,Find the Index of the First Occurrence in a String,Easy,43.7%
+29,Divide Two Integers,Medium,17.8%
+30,Substring with Concatenation of All Words,Hard,32.5%
+31,Next Permutation,Medium,41.4%
+32,Longest Valid Parentheses,Hard,34.9%
+33,Search in Rotated Sorted Array,Medium,41.7%
+34,Find First and Last Position of Element in Sorted Array,Medium,45.4%
+35,Search Insert Position,Easy,47.4%
+36,Valid Sudoku,Medium,60.8%
+37,Sudoku Solver,Hard,63.2%
+38,Count and Say,Medium,56.7%
+39,Combination Sum,Medium,73.0%
+40,Combination Sum II,Medium,56.6%
+41,First Missing Positive,Hard,40.1%
+42,Trapping Rain Water,Hard,63.3%
+43,Multiply Strings,Medium,41.1%
+44,Wildcard Matching,Hard,28.8%
+45,Jump Game II,Medium,40.8%
+46,Permutations,Medium,79.4%
+47,Permutations II,Medium,60.2%
+48,Rotate Image,Medium,76.2%
+49,Group Anagrams,Medium,69.6%
+50,Pow(x, n),Medium,35.8%
+51,N-Queens,Hard,70.3%
+52,N-Queens II,Hard,75.2%
+53,Maximum Subarray,Medium,51.3%
+54,Spiral Matrix,Medium,51.7%
+55,Jump Game,Medium,38.8%
+56,Merge Intervals,Medium,48.1%
+57,Insert Interval,Medium,42.3%
+58,Length of Last Word,Easy,54.1%
+59,Spiral Matrix II,Medium,72.3%
+60,Permutation Sequence,Hard,48.3%
+61,Rotate List,Medium,38.8%
+62,Unique Paths,Medium,64.9%
+63,Unique Paths II,Medium,42.3%
+64,Minimum Path Sum,Medium,65.2%
+65,Valid Number,Hard,20.5%
+66,Plus One,Easy,46.4%
+67,Add Binary,Easy,54.5%
+68,Text Justification,Hard,45.6%
+69,Sqrt(x),Easy,39.5%
+70,Climbing Stairs,Easy,53.2%
+71,Simplify Path,Medium,44.7%
+72,Edit Distance,Medium,57.5%
+73,Set Matrix Zeroes,Medium,57.8%
+74,Search a 2D Matrix,Medium,51.2%
+75,Sort Colors,Medium,65.3%
+76,Minimum Window Substring,Hard,43.9%
+77,Combinations,Medium,71.5%
+78,Subsets,Medium,79.5%
+79,Word Search,Medium,43.8%
+80,Remove Duplicates from Sorted Array II,Medium,60.6%
+81,Search in Rotated Sorted Array II,Medium,38.3%
+82,Remove Duplicates from Sorted List II,Medium,48.5%
+83,Remove Duplicates from Sorted List,Easy,53.6%
+84,Largest Rectangle in Histogram,Hard,45.7%
+85,Maximal Rectangle,Hard,52.0%
+86,Partition List,Medium,57.4%
+87,Scramble String,Hard,41.0%
+88,Merge Sorted Array,Easy,51.3%
+89,Gray Code,Medium,60.3%
+90,Subsets II,Medium,58.2%
+91,Decode Ways,Medium,35.6%
+92,Reverse Linked List II,Medium,48.5%
+93,Restore IP Addresses,Medium,51.3%
+94,Binary Tree Inorder Traversal,Easy,77.3%
+95,Unique Binary Search Trees II,Medium,58.9%
+96,Unique Binary Search Trees,Medium,61.7%
+97,Interleaving String,Medium,40.7%
+98,Validate Binary Search Tree,Medium,33.5%
+99,Recover Binary Search Tree,Medium,54.5%
+100,Same Tree,Easy,63.6%
+101,Symmetric Tree,Easy,57.8%
+102,Binary Tree Level Order Traversal,Medium,68.8%
+103,Binary Tree Zigzag Level Order Traversal,Medium,60.2%
+104,Maximum Depth of Binary Tree,Easy,76.3%
+105,Construct Binary Tree from Preorder and Inorder Traversal,Medium,65.2%
+106,Construct Binary Tree from Inorder and Postorder Traversal,Medium,64.6%
+107,Binary Tree Level Order Traversal II,Medium,64.5%
+108,Convert Sorted Array to Binary Search Tree,Easy,72.8%
+109,Convert Sorted List to Binary Search Tree,Medium,62.9%
+110,Balanced Binary Tree,Easy,53.7%
+111,Minimum Depth of Binary Tree,Easy,49.1%
+112,Path Sum,Easy,51.6%
+113,Path Sum II,Medium,59.4%
+114,Flatten Binary Tree to Linked List,Medium,66.7%
+115,Distinct Subsequences,Hard,48.6%
+116,Populating Next Right Pointers in Each Node,Medium,63.9%
+117,Populating Next Right Pointers in Each Node II,Medium,53.8%
+118,Pascal's Triangle,Easy,75.6%
+119,Pascal's Triangle II,Easy,64.9%
+120,Triangle,Medium,57.9%
+121,Best Time to Buy and Sell Stock,Easy,54.3%
+122,Best Time to Buy and Sell Stock II,Medium,67.9%
+123,Best Time to Buy and Sell Stock III,Hard,49.4%
+124,Binary Tree Maximum Path Sum,Hard,40.5%
+125,Valid Palindrome,Easy,49.0%
+126,Word Ladder II,Hard,27.1%
+127,Word Ladder,Hard,40.7%
+128,Longest Consecutive Sequence,Medium,47.5%
+129,Sum Root to Leaf Numbers,Medium,66.9%
+130,Surrounded Regions,Medium,41.0%
+131,Palindrome Partitioning,Medium,70.5%
+132,Palindrome Partitioning II,Hard,34.4%
+133,Clone Graph,Medium,59.5%
+134,Gas Station,Medium,45.6%
+135,Candy,Hard,43.9%
+136,Single Number,Easy,74.4%
+137,Single Number II,Medium,64.0%
+138,Copy List with Random Pointer,Medium,58.0%
+139,Word Break,Medium,47.4%
+140,Word Break II,Hard,52.0%
+141,Linked List Cycle,Easy,51.3%
+142,Linked List Cycle II,Medium,52.9%
+143,Reorder List,Medium,60.4%
+144,Binary Tree Preorder Traversal,Easy,71.2%
+145,Binary Tree Postorder Traversal,Easy,73.8%
+146,LRU Cache,Medium,43.5%
+147,Insertion Sort List,Medium,54.8%
+148,Sort List,Medium,59.8%
+149,Max Points on a Line,Hard,27.7%
+150,Evaluate Reverse Polish Notation,Medium,53.0%
+151,Reverse Words in a String,Medium,47.1%
+152,Maximum Product Subarray,Medium,34.1%
+153,Find Minimum in Rotated Sorted Array,Medium,51.5%
+154,Find Minimum in Rotated Sorted Array II,Hard,43.8%
+155,Min Stack,Medium,55.2%
+156,Binary Tree Upside Down,Medium,63.4%
+157,Read N Characters Given Read4,Easy,41.8%
+158,Read N Characters Given read4 II - Call Multiple Times,Hard,42.6%
+159,Longest Substring with At Most Two Distinct Characters,Medium,55.8%
+160,Intersection of Two Linked Lists,Easy,59.1%
+161,One Edit Distance,Medium,34.4%
+162,Find Peak Element,Medium,46.1%
+163,Missing Ranges,Easy,34.3%
+164,Maximum Gap,Medium,47.5%
+165,Compare Version Numbers,Medium,41.5%
+166,Fraction to Recurring Decimal,Medium,25.5%
+167,Two Sum II - Input Array Is Sorted,Medium,62.2%
+168,Excel Sheet Column Title,Easy,41.9%
+169,Majority Element,Easy,65.3%
+170,Two Sum III - Data structure design,Easy,38.4%
+171,Excel Sheet Column Number,Easy,64.7%
+172,Factorial Trailing Zeroes,Medium,43.9%
+173,Binary Search Tree Iterator,Medium,73.3%
+174,Dungeon Game,Hard,38.6%
+175,Combine Two Tables,Easy,76.9%
+176,Second Highest Salary,41.9%,Medium
+177,Nth Highest Salary,38.0%,Medium
+178,Rank Scores,63.6%,Medium
+179,Largest Number,40.2%,Medium
+180,Consecutive Numbers,44.3%,Medium
+181,Employees Earning More Than Their Managers,70.4%,Easy
+182,Duplicate Emails,71.7%,Easy
+183,Customers Who Never Order,69.8%,Easy
+184,Department Highest Salary,53.0%,Medium
+185,Department Top Three Salaries,55.4%,Hard
+186,Reverse Words in a String II,55.3%,Medium
+187,Repeated DNA Sequences,49.9%,Medium
 188,Best Time to Buy and Sell Stock IV,44.9%,Hard
 189,Rotate Array,41.8%,Medium
 190,Reverse Bits,60.6%,Easy
