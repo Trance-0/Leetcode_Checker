@@ -1,0 +1,38 @@
+version: '1.0'
+
+volumes:
+  backend-data:
+  static_volume:
+networks:
+  lcbackend:
+
+services:
+  lcbackend:
+    image: trance0/lcbackend:v1.0
+    env_file: 
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn main.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - backend-data:/home/lcbackend
+      - static_volume:/home/staticfiles
+    ports:
+      - ${DJANGO_PORT}:8000
+    networks:
+      - lcbackend
+  nginx:
+    image: trance0/lcnginx
+    env_file: 
+      - .env
+    build: ./nginx
+    volumes:
+      - static_volume:/home/staticfiles
+    ports:
+      # port for debugging nginx on local computer
+      - ${NGINX_PORT}:80
+    depends_on:
+      - lcbackend
+    networks:
+      - lcbackend

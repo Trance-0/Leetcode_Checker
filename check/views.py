@@ -39,16 +39,20 @@ def last_submission_time(member_id):
 
 
 # Create your views here.
+@require_GET
+def benchmark(request):
+    return render(request,'benchmark.html')
 
 @require_GET
-def load_benchmark(request):
+def get_benchmark(request):
     update_member_data(GoogleSheetScraper(os.getenv("GOOGLE_SHEET_ID"), os.getenv("GOOGLE_API_KEY")))
     update_benchmark()
     context={'last_update_time': 'N/A'}
     # test data
     daily_submissions = Problem.objects.filter(
         Q(schedule_id__member_id__user_id__is_staff=False)&
-        Q(done_date__date__gte=timezone.now().date())
+        Q(status=ProblemStatusChoices.AC)&
+        Q(done_date__date__gte=timezone.now().date()-timedelta(days=1))
         )
     daily_users = daily_submissions.values('schedule_id__member_id').distinct()
     daily_ranking = sorted([{
@@ -61,6 +65,7 @@ def load_benchmark(request):
 
     weekly_submissions = Problem.objects.filter(
         Q(schedule_id__member_id__user_id__is_staff=False)&
+        Q(status=ProblemStatusChoices.AC)&
         Q(done_date__date__gte=timezone.now().date()-timedelta(days=7))
         )
     weekly_users = weekly_submissions.values('schedule_id__member_id').distinct()
@@ -73,7 +78,7 @@ def load_benchmark(request):
 
     all_time_submissions = Problem.objects.filter(
         Q(schedule_id__member_id__user_id__is_staff=False)&
-        Q(done_date__isnull=False)
+        Q(status=ProblemStatusChoices.AC)
         )
     all_time_users = all_time_submissions.values('schedule_id__member_id').distinct()
     all_time_ranking = sorted([{
@@ -87,4 +92,4 @@ def load_benchmark(request):
     context['weekly_benchmark'] = weekly_ranking
     context['all_time_benchmark'] = all_time_ranking
     context['logs'] = ServerOperations.objects.all().order_by('-timestamp')[:10]
-    return render(request,'benchmark.html',context)
+    return render(request,'benchmark_display.html',context)

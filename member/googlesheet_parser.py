@@ -73,16 +73,17 @@ def get_member_data(
             expire_date=None
         )
     else:
+        # check member data matched
         if member.user_id.username!=display_name: 
             logger.error(f"Member {member.user_id.username} display name different from google sheet, ignore this member")
             return None
-        # update the member data
         if member.leetcode_username != leetcode_username:
-            logger.info(f"Member {member.user_id.username} leetcode username changed from {member.leetcode_username} to {leetcode_username}")
-        member.leetcode_username = leetcode_username
+            logger.error(f"Member {member.user_id.username} leetcode username different from google sheet, ignore this member")
+            return None
         if member.server_region != server_region:
-            logger.info(f"Member {member.user_id.username} server region changed from {member.server_region} to {server_region}")
-        member.server_region = server_region
+            logger.error(f"Member {member.user_id.username} server region different from google sheet, ignore this member")
+            return None
+        
         if member.is_leetcode_username_public != is_leetcode_username_public:
             logger.info(f"Member {member.user_id.username} is_leetcode_username_public changed from {member.is_leetcode_username_public} to {is_leetcode_username_public}")
         member.is_leetcode_username_public = is_leetcode_username_public
@@ -203,7 +204,7 @@ def update_member_data(google_sheet_scraper: GoogleSheetScraper)->None:
         scheduled_problems = row[6].split()
         email = row[7]
         mode = row[8]
-        display_name = row[9]
+        display_name = row[9] if len(row) > 9 else leetcode_username
         # check if the member is already in the database
         member = get_member_data(email, leetcode_username, display_name, register_date, server_region, False)
         # if member is not valid, skip this member

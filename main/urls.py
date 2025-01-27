@@ -25,16 +25,3 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include(('check.urls','check'),namespace='check')),
 ]
-
-# ... the rest of your URLconf goes here ...
-# regex the path request with media in current directory
-if settings.DEBUG:
-    urlpatterns += [
-        re_path(
-            r"^media/(?P<path>.*)$",
-            serve,
-            {
-                "document_root": settings.MEDIA_ROOT,
-            },
-        ),
-    ]
