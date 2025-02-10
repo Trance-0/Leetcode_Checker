@@ -13,3 +13,17 @@ sqlparse==0.5.1
 tzdata==2024.2
 urllib3==2.2.3
 wheel==0.44.0
+amqp==5.3.1
+billiard==4.2.1
+celery==5.4.0
+click==8.1.8
+click-didyoumean==0.3.1
+click-plugins==1.1.1
+click-repl==0.3.0
+colorama==0.4.6
+kombu==5.4.2
+prompt-toolkit==3.0.50
+python-dateutil==2.9.0.post0
+six==1.17.0
+vine==5.1.0
+wcwidth==0.2.13

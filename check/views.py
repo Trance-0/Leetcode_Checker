@@ -1,4 +1,5 @@
 from datetime import timedelta
+from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import render
 from django.db.models import Q
@@ -39,14 +40,22 @@ def last_submission_time(member_id):
 
 
 # Create your views here.
+
 @require_GET
-def benchmark(request):
-    return render(request,'benchmark.html')
+def get_ac_data(request):
+    update_benchmark()
+    return JsonResponse({'message': 'AC data correctly updated'})
+
+@require_GET
+def get_schedule_data(request):
+    update_member_data(GoogleSheetScraper(os.getenv("GOOGLE_SHEET_ID"), os.getenv("GOOGLE_API_KEY")))
+    return JsonResponse({'message': 'Schedule data correctly updated'})
+
 
 @require_GET
 def get_benchmark(request):
-    update_member_data(GoogleSheetScraper(os.getenv("GOOGLE_SHEET_ID"), os.getenv("GOOGLE_API_KEY")))
-    update_benchmark()
+    # update_member_data(GoogleSheetScraper(os.getenv("GOOGLE_SHEET_ID"), os.getenv("GOOGLE_API_KEY")))
+    # update_benchmark()
     context={'last_update_time': 'N/A'}
     # test data
     daily_submissions = Problem.objects.filter(
